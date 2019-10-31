@@ -1,0 +1,188 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	template="template/default/template.xhtml">
+	<ui:define name="content">
+	
+			<section> <!-- Page content-->
+		<div class="content-wrapper">
+			<h3>
+				Liste de Formations <small>(Ajouter,Modifier,supprimer)</small>
+			</h3>
+			<div class="container-fluid">
+
+				<!-- START DATATABLE 2 -->
+				<div class="row">
+					<div class="col-lg-12">
+						<div class="panel panel-default">
+							<div class="panel-heading">
+								   <br />          
+								<div class="col-md-3"></div>
+								<button type="button" data-toggle="modal" data-target="#myModal"
+									class="btn btn-primary btn-lg col-md-6">
+									<span style="font-size: 15px; font: bold;">Ajouter
+										Formation</span>
+								</button>
+								<br />
+								<br></br>
+
+								<hr />
+							</div>
+							<div class="panel-body">
+								<h:dataTable id="datatable2"
+									styleClass="table table-striped table-hover "
+									value="#{formationBean.formations}" var="f">
+									<h:column>
+										<f:facet name="header">
+											<h:outputText value="#" />
+										</f:facet>
+										<h:outputText value="#{f.id}" />
+									</h:column>
+									
+									<h:column>
+										<f:facet name="header">
+											<h:outputText value="Titre" />
+										</f:facet>
+										<h:outputText value="#{f.titre}" />
+									</h:column>
+									
+									<h:column>
+										<f:facet name="header">
+											<h:outputText value="Description" />
+										</f:facet>
+										<h:outputText value="#{f.description}" />
+									</h:column>
+									
+									<h:column>
+										<f:facet name="header">
+											<h:outputText value="Date" />
+										</f:facet>
+										<h:outputText value="#{f.date_debut}" />
+										<h:outputText value="#{f.date_fin}" />
+									</h:column>
+									<h:column>
+										<f:facet name="header">
+											<h:outputText value="Type" />
+										</f:facet>
+										<h:outputText value="#{f.type}" />
+									</h:column>
+									<h:column>
+										<f:facet name="header">
+											<h:outputText value="Competence" />
+										</f:facet>
+										<c:forEach items="#{f.skillss}" var="s">
+												<h:outputText value="#{s.description}"></h:outputText>
+										</c:forEach>
+									</h:column>
+									<h:column>
+										<f:facet name="header">
+											<h:outputText value="Action" />
+										</f:facet>
+										<div class="btn-group">
+											<button type="button" data-toggle="modal"
+												data-target="#sModal#{f.id}" class="btn btn-danger">
+												<i class="fa fa-times"></i>
+											</button>
+											<button data-toggle="modal" data-target="#uModal#{f.id}"
+												class="btn btn-warning">
+												<i class="fa fa-cog"></i>
+											</button>
+										</div>
+									</h:column>
+								</h:dataTable>
+
+							</div>
+						</div>
+					</div>
+				</div>
+				<!-- END DATATABLE 2 -->
+
+			</div>
+		</div>
+		</section>
+		
+	
+
+	<h:form>
+		<c:forEach var="f" items="#{formationBean.formations}">
+
+			<!--  s  modal sup -->
+
+			<div id="sModal#{f.id}" tabindex="-1" role="dialog"
+				aria-labelledby="myModalLabel" aria-hidden="true" class="modal fade"
+				style="display: none;">
+				<div class="modal-dialog">
+					<h:form id="f#{f.id}">
+						<div class="modal-content">
+							<div class="modal-header">
+								<button type="button" data-dismiss="modal" aria-label="Close"
+									class="close">
+									<span aria-hidden="true">×</span>
+								</button>
+								<h4 id="myModalLabel" class="modal-title">Suppression</h4>
+							</div>
+							<div class="modal-body">
+
+								<p>
+									Vous voulez vraiment supprime
+									<h:outputText value="#{f.titre}"></h:outputText>
+									?
+								</p>
+
+							</div>
+							<div class="modal-footer">
+								<button type="button" data-dismiss="modal"
+									class="btn btn-default">Fermer</button>
+								<h:commandButton value="Supprimer"
+									action="#{formationBean.sup(f.id)}" styleClass="btn btn-danger"></h:commandButton>
+
+							</div>
+						</div>
+					</h:form>
+				</div>
+			</div>
+
+
+
+			<!-- e modal sup -->
+			
+			</c:forEach>
+		
+	</h:form>
+	</ui:define>
+
+	<ui:define name="js">
+		<h:outputScript library="default"
+			name="vendor/datatables/media/js/jquery.dataTables.min.js"></h:outputScript>
+		<h:outputScript library="default"
+			name="vendor/datatables-colvis/js/dataTables.colVis.js"></h:outputScript>
+		<h:outputScript library="default"
+			name="vendor/datatables/media/js/dataTables.bootstrap.js"></h:outputScript>
+		<h:outputScript library="default" name="js/demo/demo-datatable.js"></h:outputScript>
+		<script
+			src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+		<h:outputScript>
+		
+		$(function(){
+
+			  $(".btn").click(
+					function(){
+						
+							setTimeout(
+					            function() {
+					              $('body').removeClass( "modal-open" );
+					            },
+					            100);
+					}	  
+			  );
+
+			});
+		
+		</h:outputScript>
+	
+	</ui:define>
+</ui:composition>

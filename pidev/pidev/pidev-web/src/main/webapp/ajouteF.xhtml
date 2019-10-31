@@ -1,0 +1,157 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	template="template/default/template.xhtml">
+	<ui:define name="content">
+		<section>
+		<div class="content-wrapper">
+			<div class="panel panel-default">
+				<div class="panel-heading"></div>
+				<div class="panel-body">
+
+					<fieldset>
+						<legend>Ajouter Formation</legend>
+						<h:form styleClass="form-horizontal">
+
+							<div class="form-group">
+								<label for="input-id-1" class="col-sm-2 control-label">Titre
+									: </label>
+								<div class="col-sm-10">
+									<h:inputText value="#{ajoutFBean.ti}" styleClass="form-control"></h:inputText>
+								</div>
+							</div>
+							<br />
+							<div class="form-group">
+								<label for="input-id-1" class="col-sm-2 control-label">Description
+									: </label>
+								<div class="col-sm-10">
+									<h:inputTextarea value="#{ajoutFBean.description}"
+										styleClass="form-control"></h:inputTextarea>
+								</div>
+							</div>
+							<br />
+							<div class="form-group">
+								<label for="input-id-1" class="col-sm-2 control-label">Date
+									debut : </label>
+								<div class="col-sm-10">
+									<input type="date" class="form-control" id="db" />
+								</div>
+							</div>
+							<br />
+							
+									
+
+										<div class="form-group ">
+											<label class="col-sm-2 control-label mb">Date fin :</label>
+											<div class="col-sm-10">
+											
+													<input type="date" class="form-control" id="df" />
+												
+											</div>
+										</div>
+									
+
+
+
+							<br />
+							<div class="form-group">
+								<label for="input-id-1" class="col-sm-2 control-label">Image
+									: </label>
+								<div class="col-sm-10">
+									<h:inputText value="#{ajoutFBean.description}"
+										styleClass="form-control"></h:inputText>
+								</div>
+							</div>
+							<br />
+							<div class="form-group">
+								<label for="input-id-1" class="col-sm-2 control-label">Type
+									: </label>
+								<div class="col-sm-10">
+									<h:selectOneMenu value="#{ajoutFBean.type}"
+										styleClass="form-control ">
+										<f:selectItem itemLabel="Selectionner le Type" itemValue="" />
+										<f:selectItems value="#{dataTypeF.type}" />
+									</h:selectOneMenu>
+								</div>
+							</div>
+							<br />
+							<div class="form-group">
+								<label for="input-id-1" class="col-sm-2 control-label">Formateur
+									: </label>
+								<div class="col-sm-10">
+									<h:selectOneMenu value="#{ajoutFBean.formateur}"
+										styleClass="form-control ">
+										<f:selectItem itemLabel="Selectionner Formateur" itemValue="" />
+										<f:selectItems var="f" value="#{ajoutFBean.formateurs}"
+											itemValue="#{f.id}" itemLabel="#{f.nomPrenom}" />
+									</h:selectOneMenu>
+								</div>
+							</div>
+							
+							<br />
+							<div class="form-group">
+								<label for="input-id-1" class="col-sm-2 control-label">Competence
+									: </label>
+								<div class="col-sm-10">
+
+									<h:selectManyMenu value="#{ajoutFBean.skillss}"
+										styleClass="form-control " style="height : 100px;">
+										<f:selectItems value="#{ajoutFBean.ls}" var="s"
+											itemValue="#{s.id}" itemLabel="#{s.description}"></f:selectItems>
+									</h:selectManyMenu>
+
+
+								</div>
+							</div>
+				<h:inputText value="#{ajoutFBean.date_debut}" styleClass="dtb" style="opacity : 0" ></h:inputText>
+				<h:inputText value="#{ajoutFBean.date_fin}" styleClass="dtf" style="opacity : 0" ></h:inputText>
+
+
+
+							<br />
+							<div class="form-group">
+								<div class="col-sm-3"></div>
+								<h:commandButton value="Ajouter" action="#{ajoutFBean.Ajout()}"
+									styleClass="btn btn-primary btn-lg col-sm-6 "></h:commandButton>
+							</div>
+							
+						</h:form>
+					</fieldset>
+				</div>
+			</div>
+		</div>
+		</section>
+
+	</ui:define>
+
+	<ui:define name="js">
+		<script
+			src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+			
+			<h:outputScript>
+		
+		$(function(){
+
+			  $("#db").change(
+					function(){
+					
+						$(".dtb").val($("#db").val());
+					}	  
+			  );
+			  
+			   $("#df").change(
+					function(){
+						$(".dtf").val($("#df").val());
+					}	  
+			  );
+
+			});
+		
+		</h:outputScript>
+
+	</ui:define>
+
+</ui:composition>
